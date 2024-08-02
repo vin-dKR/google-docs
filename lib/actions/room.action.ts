@@ -3,29 +3,32 @@
 import { nanoid } from "nanoid";
 import { liveblocks } from "../liveblocks";
 import { revalidatePath } from "next/cache";
+import { parseStringify } from "../utils";
 
-export const createRoomDocument = async ({ userId, email } : CreateDocumentParams) => {
+export const createDocument = async ({ userId, email }: CreateDocumentParams) => {
     const roomId = nanoid();
 
     try {
         const metadata = {
             creatorId: userId,
             email,
-            title: "Untitled",
+            title: 'Untitled'
         }
 
         const usersAccesses: RoomAccesses = {
-            [email]: ['room:write'],
+            [email]: ['room:write']
         }
 
         const room = await liveblocks.createRoom(roomId, {
             metadata,
             usersAccesses,
-            defaultAccesses: [],
-          });
+            defaultAccesses: []
+        });
 
-          revalidatePath('/');
+        revalidatePath('/');
+
+        return parseStringify(room);
     } catch (error) {
-        console.log("ROOM_CREATE_ERROR", error);
+        console.log(`Error happened while creating a room: ${error}`);
     }
 }

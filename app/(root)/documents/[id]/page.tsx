@@ -5,7 +5,7 @@ import React from 'react'
 
 const Document = () => {
   return (
-    <div>
+    <div className='mx-24'>
       <Header>
         <div className='flex w-fit items-center justify-center gap-2'>
           <p className='text-white document-title'>Document</p>
