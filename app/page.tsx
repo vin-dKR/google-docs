@@ -17,7 +17,7 @@ export default async function Home() {
       {/* Home navbar */}
       <Header className="sticky top-0 left-0" >
         <div className="flex items-center gap-2 lg:gap-4">
-          Notifiction
+          Notification
           <SignedIn>
             <UserButton />
           </SignedIn>
