@@ -11,8 +11,7 @@ import Image from "next/image"
 import { Input } from "./input"
 import { updateDocument } from "@/lib/actions/room.action"
 
-function CollaborativeRoom({ roomId, roomMetadata }: CollaborativeRoomProps) {
-    const currentEditorType = "editor"
+function CollaborativeRoom({ roomId, roomMetadata, users, currentUserType }: CollaborativeRoomProps) {
     const [documentTitle, setDocumentTitle] = useState(roomMetadata?.title || "un-titled")
     const [loading, setLoading] = useState(false)
     const [editing, setEditing] = useState(false)
@@ -83,7 +82,7 @@ function CollaborativeRoom({ roomId, roomMetadata }: CollaborativeRoomProps) {
                                 </>
                             )}
 
-                            {currentEditorType === "editor" && !editing && (
+                            {currentUserType === "editor" && !editing && (
                                 <Image
                                     src="/assets/icons/edit.svg"
                                     alt="edit"
@@ -95,7 +94,7 @@ function CollaborativeRoom({ roomId, roomMetadata }: CollaborativeRoomProps) {
                             )}
                             
                             {/* restrict re-name */}
-                            {currentEditorType !== "editor" && !editing && (
+                            {currentUserType !== "editor" && !editing && (
                                 <p>View Only</p>
                             )}
 
@@ -111,7 +110,7 @@ function CollaborativeRoom({ roomId, roomMetadata }: CollaborativeRoomProps) {
                             </SignedIn>
                         </div>
                     </Header>
-                    <Editor />
+                    <Editor roomId={roomId} currentUserType={currentUserType} />
                 </div>
             </ClientSideSuspense>
         </RoomProvider>
