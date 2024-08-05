@@ -13,7 +13,7 @@ import { updateDocument } from "@/lib/actions/room.action"
 
 function CollaborativeRoom({ roomId, roomMetadata }: CollaborativeRoomProps) {
     const currentEditorType = "editor"
-    const [documentTitle, setDocumentTitle] = useState(roomMetadata?.title || "Untitled")
+    const [documentTitle, setDocumentTitle] = useState(roomMetadata?.title || "un-titled")
     const [loading, setLoading] = useState(false)
     const [editing, setEditing] = useState(false)
 
@@ -21,35 +21,38 @@ function CollaborativeRoom({ roomId, roomMetadata }: CollaborativeRoomProps) {
     const inputRef = useRef<HTMLInputElement>(null)
 
     const updateTitleHandler = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
-            setLoading(true)
-
-            try {
-                if(documentTitle !== roomMetadata.title) {
-                    const updatedDocument = await updateDocument(roomId, documentTitle);
-                    console.log(updatedDocument)
-
-                    if(updatedDocument) {
-                        setEditing(false)
-                    }
-                }
-            } catch (error) {
-                console.log(`Error happened while updating a room: ${error}`);
+        if(e.key === 'Enter') {
+          setLoading(true);
+    
+          try {
+            if(documentTitle !== roomMetadata.title) {
+              const updatedDocument = await updateDocument(roomId, documentTitle);
+              
+              if(updatedDocument) {
+                setEditing(false);
+              }
             }
-            setLoading(false);
+          } catch (error) {
+            console.error(error);
+          }
+    
+          setLoading(false);
         }
-    }
+      }
 
     useEffect(() => {
       const handleClickOutside = (e: MouseEvent) => {
         if(containerRef.current && !containerRef.current.contains(e.target as Node)) {
             setEditing(false)
+            updateDocument(roomId, documentTitle)   
         }
       }
 
       document.addEventListener("mousedown", handleClickOutside)
-      return () => document.removeEventListener("mousedown", handleClickOutside)
-    }, [])
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      }
+    }, [roomId, documentTitle])
 
     useEffect(() => {
         if(editing && inputRef.current) {
@@ -66,9 +69,9 @@ function CollaborativeRoom({ roomId, roomMetadata }: CollaborativeRoomProps) {
                             {editing && !loading ? (
                                 <Input
                                     type="text"
-                                    ref={inputRef}
                                     value={documentTitle}
-                                    placeholder="Untitled"
+                                    ref={inputRef}
+                                    placeholder="Enter title"
                                     onChange={(e) => setDocumentTitle(e.target.value)}
                                     onKeyDown={updateTitleHandler}
                                     disabled={!editing}
@@ -76,7 +79,7 @@ function CollaborativeRoom({ roomId, roomMetadata }: CollaborativeRoomProps) {
                                 />
                             ) : (
                                 <>
-                                    <p>Untitled</p>
+                                    <p className="document-title">{documentTitle}</p>
                                 </>
                             )}
 
@@ -90,7 +93,8 @@ function CollaborativeRoom({ roomId, roomMetadata }: CollaborativeRoomProps) {
                                     className="pointer"
                                 />
                             )}
-
+                            
+                            {/* restrict re-name */}
                             {currentEditorType !== "editor" && !editing && (
                                 <p>View Only</p>
                             )}
