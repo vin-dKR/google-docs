@@ -3,7 +3,7 @@
 import { nanoid } from "nanoid";
 import { liveblocks } from "../liveblocks";
 import { revalidatePath } from "next/cache";
-import { parseStringify } from "../utils";
+import { getAccessType, parseStringify } from "../utils";
 import { parse } from "path";
 
 export const createDocument = async ({ userId, email }: CreateDocumentParams) => {
@@ -92,5 +92,50 @@ export const getDocumentUsers = async ({ roomId, currentUser, text}: {roomId: st
         return parseStringify(users)
     } catch (error) {
         console.log(error);
+    }
+}
+
+export const updateDocumentAccess = async ({ email, roomId, userType, updatedBy }: ShareDocumentParams) => {
+    try {
+        const usersAccesses: RoomAccesses = {
+            [email]: getAccessType(userType) as AccessType,
+        }
+
+        const room = await liveblocks.updateRoom(roomId, {
+            usersAccesses
+        })
+
+        if(room) {
+
+        }
+
+        revalidatePath(`/documents/${roomId}`)
+
+        return parseStringify(room)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const removeCollaborator = async ({ email, roomId }: { email: string, roomId: string }) => {
+    try {
+        const room = await liveblocks.getRoom(roomId)
+
+        if(room.metadata.email === email) {
+            throw new Error(`You cannot remove yourself from the document.`)
+        }
+
+        const updatedRoom = await liveblocks.updateRoom(roomId, {
+            usersAccesses: {
+                [email]: null
+            }
+        })
+
+        revalidatePath(`/documents/${roomId}`)
+
+        return parseStringify(updatedRoom)
+
+    } catch (error) {
+        console.log(error)
     }
 }
