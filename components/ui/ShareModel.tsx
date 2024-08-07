@@ -16,6 +16,7 @@ import Image from 'next/image'
 import { Input } from './input'
 import UserTypeSelector from './UserTypeSelector'
 import Collaborator from './Collaborator'
+import { updateDocumentAccess } from '@/lib/actions/room.action'
 
 
 function ShareModel({ roomId, collaborators, creatorId, currentUserType }: ShareDocumentDialogProps) {
@@ -28,7 +29,16 @@ function ShareModel({ roomId, collaborators, creatorId, currentUserType }: Share
 
     const shareDocumentHandler = async () => {
         setLoading(true)
-    }
+    
+        await updateDocumentAccess({
+          email,
+          roomId,
+          userType: userType as UserType,
+          updatedBy: user.info
+        })
+    
+        setLoading(false)
+      }
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger>

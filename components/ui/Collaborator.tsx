@@ -1,17 +1,38 @@
 'use client'
 
-import { P } from '@liveblocks/react/dist/suspense-HhfQZzDE'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import UserTypeSelector from './UserTypeSelector'
 import { Button } from './Button'
+import { removeCollaborator, updateDocumentAccess } from '@/lib/actions/room.action'
 
 function Collaborator({ roomId, creatorId, email, collaborator, user }: CollaboratorProps) {
   const [userType, setUserType] = useState(collaborator.userType || 'viewer')
-  const [loading, setLoading] = useState()
+  const [loading, setLoading] = useState(false)
 
-  const shareDocumentHandler = (type: string) => { }
-  const deleteDocumentHandler = (email: string) => { }
+  const shareDocumentHandler = async (type: string) => {
+    setLoading(true)
+
+    await updateDocumentAccess({
+      email,
+      roomId,
+      userType: type as UserType,
+      updatedBy: user
+    })
+
+    setLoading(false)
+  }
+
+  const deleteDocumentHandler = async (email: string) => {
+    setLoading(true)
+
+    await removeCollaborator({
+      roomId,
+      email
+    })
+
+    setLoading(false)
+  }
 
   return (
     <li className='flex item-center justify-between gap-2 py-3'>
@@ -26,7 +47,6 @@ function Collaborator({ roomId, creatorId, email, collaborator, user }: Collabor
         <div>
           <p className='line-clamp-1 text-sm font-semibold leading-4 text-white'>
             {collaborator.name}
-
             <span className='text-10-regular pl-2 text-blue-100'>
               {loading && "updating..."}
             </span>
@@ -39,15 +59,15 @@ function Collaborator({ roomId, creatorId, email, collaborator, user }: Collabor
       {creatorId === collaborator.id ? (
         <p className='text-blue-100 text-sm'>Owner</p>
       ) : (
-        <div>
+        <div className='flex item-center'>
           <UserTypeSelector
             userType={userType as UserType}
             setUserType={setUserType || 'viewer'}
             onClickHandler={shareDocumentHandler}
           />
-        <Button type='button' onClick={() => deleteDocumentHandler(collaborator.email)}>
-          Remove
-        </Button>
+          <Button type='button' onClick={() => deleteDocumentHandler(collaborator.email)}>
+            Remove
+          </Button>
         </div>
       )}
     </li>

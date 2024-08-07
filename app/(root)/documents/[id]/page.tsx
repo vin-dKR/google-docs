@@ -24,15 +24,21 @@ const Document = async ({ params: { id } }: SearchParamProps) => {
   const userIds = Object.keys(room.usersAccesses)
   const users = await getClerkUsers({ userIds })
 
-  const usersData = users.map((user: User) => ({
-    ...user,
-    userType: room.usersAccesses[user.email]?.includes('room:write') ? 'editor' : 'viewer'
-  })) 
+  const usersData = users.map((user: User) => {
+    if (!user) return null; // Skip if user is null or undefined
+    const userEmail = user.email; // Store user email in a variable
+    return {
+      ...user,
+      userType: userEmail && room.usersAccesses[userEmail]?.includes('room:write')
+        ? 'editor'
+        : 'viewer'
+    }
+  }).filter(Boolean); // Remove any null entries
 
   const currentUserType = room.usersAccesses[clerkUser.emailAddresses[0].emailAddress]?.includes('room:write') ? 'editor' : 'viewer';
 
   return (
-    <main className='mx-24'>
+    <main className="flex w-full flex-col items-center">
       <CollaborativeRoom
         roomId={id}
         roomMetadata={room.metadata}
