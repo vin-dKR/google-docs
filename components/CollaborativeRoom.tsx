@@ -1,14 +1,14 @@
 'use client'
 
 import { ClientSideSuspense, RoomProvider } from "@liveblocks/react"
-import Loader from "./Loader"
-import { Editor } from '@/components/editor/Editor'
-import Header from '@/components/ui/Header'
+import Loader from "./ui/Loader"
+import { Editor } from '@/components/Editor'
+import Header from '@/components/Header'
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 import ActiveCollaborator from "./ActiveCollaborator"
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { Input } from "./input"
+import { Input } from "./ui/input"
 import { updateDocument } from "@/lib/actions/room.action"
 import ShareModel from "./ShareModel"
 

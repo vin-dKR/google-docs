@@ -1,5 +1,5 @@
-import AddDocumentBtn from "@/components/ui/AddDocumentBtn";
-import Header from "@/components/ui/Header";
+import AddDocumentBtn from "@/components/AddDocumentBtn";
+import Header from "@/components/Header";
 import { getDocuments } from "@/lib/actions/room.action";
 import { dateConverter } from "@/lib/utils";
 import { SignedIn, UserButton } from "@clerk/nextjs";

@@ -1,7 +1,7 @@
 'use client';
 
-import Theme from './plugins/Theme';
-import ToolbarPlugin from './plugins/ToolbarPlugin';
+import Theme from './editor/plugins/Theme';
+import ToolbarPlugin from './editor/plugins/ToolbarPlugin';
 import { HeadingNode } from '@lexical/rich-text';
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
@@ -11,10 +11,10 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
 import React from 'react';
 import { FloatingComposer, FloatingThreads, liveblocksConfig, LiveblocksPlugin, useEditorStatus } from "@liveblocks/react-lexical"
-import Loader from '../ui/Loader';
-import FloatingToolbarPlugin from './plugins/FloatingToolbarPlugin'
+import Loader from './ui/Loader';
+import FloatingToolbarPlugin from './editor/plugins/FloatingToolbarPlugin'
 import { useThreads } from '@liveblocks/react/suspense';
-import Comment from '../ui/Comment';
+import Comment from './Comment';
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
 // try to recover gracefully without losing user data.

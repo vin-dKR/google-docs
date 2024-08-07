@@ -13,7 +13,7 @@ import {
 import { Label } from "@/components/ui/label"
 import { Button } from './Button'
 import Image from 'next/image'
-import { Input } from './input'
+import { Input } from './ui/input'
 import UserTypeSelector from './UserTypeSelector'
 import Collaborator from './Collaborator'
 import { updateDocumentAccess } from '@/lib/actions/room.action'
