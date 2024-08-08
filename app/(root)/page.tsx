@@ -1,5 +1,6 @@
 import AddDocumentBtn from "@/components/AddDocumentBtn";
 import { DeleteModal } from "@/components/DeleteModel";
+import DocumentLink from "@/components/DocumentLink";
 import Header from "@/components/Header";
 import Notifications from "@/components/Notifications";
 import { getDocuments } from "@/lib/actions/room.action";
@@ -15,8 +16,6 @@ export default async function Home() {
   if (!clerkUser) redirect("/sign-in")
 
   const roomDocuments = await getDocuments(clerkUser.emailAddresses[0].emailAddress)
-
-  if (!clerkUser) redirect("/sign-in")
 
   return (
     <main className="home-container">
@@ -43,21 +42,8 @@ export default async function Home() {
           <ul className="document-ul">
             {roomDocuments.data.map(({ id, metadata, createdAt }: any) => (
               <li key={id} className="document-list-item">
-                <Link href={`/documents/${id}`} className="flex flex-1 items-center gap-4">
-                  <div className="hidden rounded-md bg-dark-500 sm">
-                    <Image
-                      src='/assets/icons/doc.svg'
-                      alt="file"
-                      width={40}
-                      height={40}
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <p className="line-clamp-1 lext-lg">{ metadata.title }</p>
-                    <p className="text-sm font-light text-blue-100">Created About { dateConverter(createdAt) }</p>
-                  </div>
-                </Link>
-                <DeleteModal roomId={ id }/>
+                {/* document room card --> title + delete */}
+                <DocumentLink id={id} title={metadata.title} createdAt={createdAt} />
               </li>
             ))}
           </ul>
