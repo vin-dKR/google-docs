@@ -29,6 +29,7 @@ export default async function Home() {
         </div>
       </Header>
 
+      {/* main list of docs room  */}
       {roomDocuments.data.length > 0 ? (
         <div className="document-list-container">
           <div className="document-list-title">
