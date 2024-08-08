@@ -1,4 +1,5 @@
 'use client'
+
 import React from 'react'
 import { LiveblocksProvider, ClientSideSuspense } from '@liveblocks/react'
 import Loader from '@/components/ui/Loader'

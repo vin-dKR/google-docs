@@ -44,7 +44,7 @@ export default async function Home() {
             {roomDocuments.data.map(({ id, metadata, createdAt }: any) => (
               <li key={id} className="document-list-item">
                 <Link href={`/documents/${id}`} className="flex flex-1 items-center gap-4">
-                  <div className="hidden rounded-md bg-dark-500 sm:block">
+                  <div className="hidden rounded-md bg-dark-500 sm">
                     <Image
                       src='/assets/icons/doc.svg'
                       alt="file"

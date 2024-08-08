@@ -2,7 +2,7 @@
 
 import { ClientSideSuspense, RoomProvider } from "@liveblocks/react"
 import Loader from "./ui/Loader"
-import { Editor } from '@/components/Editor'
+import { Editor } from './editor/Editor'
 import Header from '@/components/Header'
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 import ActiveCollaborator from "./ActiveCollaborator"
