@@ -5,6 +5,7 @@ import { liveblocks } from "../liveblocks";
 import { revalidatePath } from "next/cache";
 import { getAccessType, parseStringify } from "../utils";
 import { redirect } from "next/navigation";
+import { title } from "process";
 
 export const createDocument = async ({ userId, email }: CreateDocumentParams) => {
     const roomId = nanoid();
@@ -76,12 +77,12 @@ export const getDocuments = async (email: string) => {
     }
 }
 
-export const getDocumentUsers = async ({ roomId, currentUser, text}: {roomId: string, currentUser: string, text: string}) => {
+export const getDocumentUsers = async ({ roomId, currentUser, text }: { roomId: string, currentUser: string, text: string }) => {
     try {
         const room = await liveblocks.getRoom(roomId)
         const users = Object.keys(room.usersAccesses).filter((email) => email != currentUser)
 
-        if(text.length) {
+        if (text.length) {
             const lowerCaseText = text.toLowerCase()
 
             const filteredUsers = users.filter((email: string) => email.toLowerCase().includes(lowerCaseText))
@@ -105,8 +106,23 @@ export const updateDocumentAccess = async ({ email, roomId, userType, updatedBy 
             usersAccesses
         })
 
-        if(room) {
+        if (room) {
+            //trigger notification when another room access by another user
+            const notificationId = nanoid()
 
+            await liveblocks.triggerInboxNotification({
+                userId: email,
+                kind: '$documentAccess',
+                subjectId: notificationId,
+                activityData: {
+                    userType,
+                    title: `You have been granted ${userType} access to the doucment by ${updatedBy.name}`,
+                    updatedBy: updatedBy.name,
+                    avatar: updatedBy.avatar,
+                    email: updatedBy.email
+                },
+                roomId
+            })
         }
 
         revalidatePath(`/documents/${roomId}`)
@@ -121,7 +137,7 @@ export const removeCollaborator = async ({ email, roomId }: { email: string, roo
     try {
         const room = await liveblocks.getRoom(roomId)
 
-        if(room.metadata.email === email) {
+        if (room.metadata.email === email) {
             throw new Error(`You cannot remove yourself from the document.`)
         }
 
