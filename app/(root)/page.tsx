@@ -1,4 +1,5 @@
 import AddDocumentBtn from "@/components/AddDocumentBtn";
+import { DeleteModal } from "@/components/DeleteModel";
 import Header from "@/components/Header";
 import { getDocuments } from "@/lib/actions/room.action";
 import { dateConverter } from "@/lib/utils";
@@ -55,6 +56,7 @@ export default async function Home() {
                     <p className="text-sm font-light text-blue-100">Created About { dateConverter(createdAt) }</p>
                   </div>
                 </Link>
+                <DeleteModal roomId={ id }/>
               </li>
             ))}
           </ul>

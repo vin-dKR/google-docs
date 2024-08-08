@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
 import UserTypeSelector from './UserTypeSelector'
-import { Button } from './Button'
+import { Button } from './ui/Button'
 import { removeCollaborator, updateDocumentAccess } from '@/lib/actions/room.action'
 
 function Collaborator({ roomId, creatorId, email, collaborator, user }: CollaboratorProps) {

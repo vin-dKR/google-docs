@@ -11,7 +11,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
-import { Button } from './Button'
+import { Button } from './ui/Button'
 import Image from 'next/image'
 import { Input } from './ui/input'
 import UserTypeSelector from './UserTypeSelector'

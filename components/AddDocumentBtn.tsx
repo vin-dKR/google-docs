@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { Button } from './Button'
+import { Button } from './ui/Button'
 import Image from 'next/image'
 import { createDocument } from '@/lib/actions/room.action'
 import { useRouter } from 'next/navigation'
