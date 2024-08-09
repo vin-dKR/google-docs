@@ -7,8 +7,11 @@ import { getClerkUsers } from '@/lib/actions/user.action'
 import { getDocumentUsers } from '@/lib/actions/room.action'
 import { useUser } from '@clerk/nextjs'
 
+// import { ThemeProvider } from 'next-themes'
+  
+
 function Provider({ children }: HeaderProps) {
-  const {user: clerkUser} = useUser()
+  const { user: clerkUser } = useUser()
   return (
     <LiveblocksProvider
       authEndpoint="/api/liveblocks-auth"
@@ -16,7 +19,7 @@ function Provider({ children }: HeaderProps) {
         const users = await getClerkUsers({ userIds })
         return users
       }}
-      resolveMentionSuggestions={async ({text, roomId}) => {
+      resolveMentionSuggestions={async ({ text, roomId }) => {
         const roomUsers = await getDocumentUsers({
           roomId,
           currentUser: clerkUser?.emailAddresses[0].emailAddress!,
@@ -26,7 +29,9 @@ function Provider({ children }: HeaderProps) {
       }}
     >
       <ClientSideSuspense fallback={<Loader />}>
-        {children}
+        {/* <ThemeProvider attribute="class" defaultTheme='system' enableSystem> */}
+          {children}
+        {/* </ThemeProvider> */}
       </ClientSideSuspense>
     </LiveblocksProvider>
   )

@@ -1,14 +1,12 @@
 import AddDocumentBtn from "@/components/AddDocumentBtn";
-import { DeleteModal } from "@/components/DeleteModel";
 import DocumentLink from "@/components/DocumentLink";
 import Header from "@/components/Header";
 import Notifications from "@/components/Notifications";
+// import ThemeSwitch from "@/components/ThemeSwitch";
 import { getDocuments } from "@/lib/actions/room.action";
-import { dateConverter } from "@/lib/utils";
 import { SignedIn, UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
@@ -22,6 +20,7 @@ export default async function Home() {
       {/* Home navbar */}
       <Header className="sticky top-0 left-0" >
         <div className="flex items-center gap-2 lg:gap-4">
+          {/* <ThemeSwitch /> */}
           <Notifications />
           <SignedIn>
             <UserButton />
