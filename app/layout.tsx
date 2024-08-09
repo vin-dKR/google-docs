@@ -13,7 +13,7 @@ const fontSans = FontSans({
 })
 
 export const metadata: Metadata = {
-  title: "Google Docs",
+  title: "Boogle Docs",
   description: "Google Docs Clone",
 }
 
