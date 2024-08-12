@@ -8,11 +8,11 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://s1.ezgif.com/tmp/ezgif-1-7a66c2cc0e.png" alt="project-screenshot" width="400" height="400/">
+<img src="https://s1.ezgif.com/tmp/ezgif-1-7a66c2cc0e.png" alt="project-screenshot" width="800px" height="450px/">
 
-<img src="https://s1.ezgif.com/tmp/ezgif-1-5ab664af60.png" alt="project-screenshot" width="400" height="400/">
+<img src="https://s1.ezgif.com/tmp/ezgif-1-5ab664af60.png" alt="project-screenshot" width="800px" height="450px/">
 
-<img src="https://s1.ezgif.com/tmp/ezgif-1-92c51c281d.gif" alt="project-screenshot" width="400" height="400/">
+<img src="https://s1.ezgif.com/tmp/ezgif-1-92c51c281d.gif" alt="project-screenshot" width="800px" height="450px/">
 
   
   
