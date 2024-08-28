@@ -8,12 +8,9 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://s1.ezgif.com/tmp/ezgif-1-7a66c2cc0e.png" alt="project-screenshot" width="800px" height="450px/">
-
-<img src="https://s1.ezgif.com/tmp/ezgif-1-5ab664af60.png" alt="project-screenshot" width="800px" height="450px/">
-
-<img src="https://s1.ezgif.com/tmp/ezgif-1-92c51c281d.gif" alt="project-screenshot" width="800px" height="450px/">
-
+![7](https://github.com/user-attachments/assets/db1a0c3b-eff3-49fc-bd03-ef3632adeb14)
+![8](https://github.com/user-attachments/assets/7dddd6bf-cdf3-4469-ab8c-0756e13740eb)
+![9](https://github.com/user-attachments/assets/c91b2527-cbdb-44be-b454-94cc8f89e7eb)
   
   
 <h2>🧐 Features</h2>
